@@ -1,28 +1,50 @@
-let form = document.getElementById("form");
-
-form.addEventListener("submit", function(event) {
+document.getElementById("form").addEventListener("submit", function(event) {
     event.preventDefault();
 
-    let nome = document.getElementById("nome").value;
-    let datanascimento = document.getElementById("datanascimento").value;
-    let cpf = document.getElementById("cpf").value;
-    let rg = document.getElementById("rg").value;
-    let email = document.getElementById("email").value;
-    let telefone = document.getElementById("telefone").value;
-    let endereco = document.getElementById("endereco").value;
-    let numero = document.getElementById("numero").value;
-    let complemento = document.getElementById("complemento").value;
-    let bairro = document.getElementById("bairro").value;
-    let estado = document.getElementById("estado").value;
-    let cidade = document.getElementById("cidade").value;
-    let cep = document.getElementById("cep").value;
+    const nome = document.getElementById("name").value;
+    const data = document.getElementById("data").value;
+    const cpf = document.getElementById("cpf").value;
+    const rg = document.getElementById("RG").value;
+    const email = document.getElementById("email").value;
+    const endereco = document.getElementById("endereco").value;
+    const telefone = document.getElementById("telefone").value;
+    const numero = document.getElementById("numero").value;
+    const complemento = document.getElementById("complemento").value;
+    const bairro = document.getElementById("bairro").value;
+    const cidade = document.getElementById("cidade").value;
+    const cep = document.getElementById("cep").value;
+    const estado = document.getElementById("selecione").value;
 
-    let novoParagrafo = document.createElement("p")
+    const diasSelecionados = Array.from(document.querySelectorAll("input[name='dias']:checked"))
+        .map(checkbox => checkbox.value);
 
-    novoParagrafo.textContent = `Nome: {Nome Completo} | datanascimento: {Data De Nascimento} | cpf: {CPF} | rg: {rg} | email: {email} | telefone: {telefone} | endereço: {endereço} | numero: {numero} | complemento: {complemento} | bairro: {bairro} | estado: {estado} | cidade: {cidade} | cep: {CEP}`;
-    document.getElementById("Dados").appendChild(novoParagrafo);
+    const diasTexto = diasSelecionados.length > 0 ? diasSelecionados.join(", ") : "Nenhum dia selecionado";
 
-    form.reset();
+    const resultado = document.getElementById("resultado");
+    resultado.innerHTML = "";
 
-    form.addEventListener("submit", function(event) {
-    event.preventDefault();
+    const titulo = document.createElement("h4");
+    titulo.textContent = "Dados salvos com sucesso :D";
+    resultado.appendChild(titulo);
+
+    function displayField(label, value) {
+        const p = document.createElement("p");
+        p.innerHTML = `<strong>${label}</strong> ${value}`;
+        resultado.appendChild(p);
+    }
+
+    displayField("Nome:", nome);
+    displayField("Data de Nascimento:", data);
+    displayField("CPF:", cpf);
+    displayField("RG:", rg);
+    displayField("E-mail:", email);
+    displayField("Endereço:", `${endereco}, Nº ${numero}`);
+    displayField("Telefone:", telefone);
+    displayField("Complemento:", complemento);
+    displayField("Bairro:", bairro);
+    displayField("Cidade:", cidade);
+    displayField("CEP:", cep);
+    displayField("Estado:", estado);
+    displayField("Dias escolhidos:", diasTexto);
+
+});
